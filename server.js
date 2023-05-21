@@ -7,6 +7,8 @@ app.set("view engine", "ejs");
 
 // mongoDB connect
 const mongoose = require("mongoose");
+const uri = "mongodb+srv://jihyo0318:QcWCBkRNHKXmXM2B@cluster0.93il326.mongodb.net/?retryWrites=true&w=majority";
+
 // mongoose.connect("mongodb+srv://jihyo0318:QcWCBkRNHKXmXM2B@cluster0.93il326.mongodb.net/?retryWrites=true&w=majority",{
 // 	}).then(() => console.log("MongoDB connected..."))   //연결잘되면
 //     .catch((err) => console.log(err));  
@@ -17,7 +19,8 @@ var UserModel; // 데이터베이스 모델 객체를 위한 변수 선언
 
 function connectDB(){
     // 데이터베이스 연결 정보
-    var databaseUrl = 'mongodb://127.0.0.1:27017/local';
+    // var databaseUrl = 'mongodb://127.0.0.1:27017/local';
+    var databaseUrl = 'mongodb+srv://jihyo0318:QcWCBkRNHKXmXM2B@cluster0.93il326.mongodb.net/?retryWrites=true&w=majority';
     // 데이터베이스 연결
     console.log('데이터베이스 연결을 시도합니다.');
     mongoose.Promise = global.Promise;
@@ -85,6 +88,7 @@ app.get("/music", (req, res)=> {
 })
 
 app.use('/users', require('./routes/users'));
+app.use('admin', require("./routes/admin"));
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: false }));
 // QcWCBkRNHKXmXM2B - mongodb password

@@ -122,7 +122,7 @@
       var submit = document.getElementById("submit");
 
       submit.addEventListener("click", () => {
-        var name = document.getElementById("name").value;
+        var name = document.getElementById("name").value.replace(" ", "");
         if (song === undefined) {
           Swal.fire({
             icon: 'error',

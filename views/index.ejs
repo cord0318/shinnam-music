@@ -10,21 +10,33 @@
 </head>
 <body>
     <%-include('nav.ejs')%>
-    <div class="container text-center" id="songlist">
+    <div class="container text-center">
+        <h1>신청곡 리스트 🎧</h1>
+        <div class="row row-cols-1 row-cols-md-3 g-4" id="songlist"></div>
+</div>
 
-    </div>
-
-    <script>
-        var songlist;
-        fetch(`/users`)
-        .then((response) => response.json())
-        .then((data) => {
+<script>
+    var songlist;
+    fetch(`/users`)
+    .then((response) => response.json())
+    .then((data) => {
             for (var i in data) {
-                songlist += `[${i}] ${data[i].song} - ${data[i].name}<br>`
-            }
-            document.getElementById("songlist").innerHTML = songlist.replace("undefined", "");
-        });
-        // console.log(songlist);
+                var embedUrl = "https://www.youtube.com/embed/" + data[i].url.split("?v=")[1];
+                console.log(data[i]);
+                console.log(embedUrl);
+                songlist += `<div class="col">
+                    <div class="card h-100">
+                        <iframe width="355" height="355" src="${embedUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <div class="card-body">
+                            <h5 class="card-title">[${String(Number(i)+1)}] ${data[i].song}</h5>
+                            <p class="card-text">신청자 : ${data[i].name}</p>
+                        </div>
+                    </div>
+                </div>`
+                }
+                document.getElementById("songlist").innerHTML = songlist.replace("undefined", "");
+            });
+            console.log(songlist);
     </script>
 </body>
 </html>
